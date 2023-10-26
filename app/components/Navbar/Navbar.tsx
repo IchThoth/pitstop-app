@@ -1,4 +1,6 @@
 /* eslint-disable react/jsx-no-undef */
+'use client';
+
 import Container from "../Container";
 import Logo from "./Logo";
 import Search from "./Search";
