@@ -6,10 +6,11 @@ import {FcGoogle} from 'react-icons/fc';
 import { useState, useCallback } from "react";
 import { FieldValues, SubmitHandler, useForm } from "react-hook-form";
 import useRegisterModal from "@/app/hooks/useRegistrationModal";
-import { error } from "console";
+import { toast } from 'react-hot-toast'
 import Modal from "./Modal";
 import Heading from "../Header";
 import Input from "../inputs/Input";
+import Button from "../Button";
 
 const RegisterModal = () => {
     const registerModal = useRegisterModal();
@@ -31,7 +32,7 @@ const RegisterModal = () => {
             registerModal.onClose();
         })
         .catch((error) => {
-            console.log(error);
+            toast.error('wetin you dey do ???');
         })
         .finally(()=>{
             setIsLoading(false);
@@ -47,8 +48,23 @@ const RegisterModal = () => {
         </div>
     )
 
+    const footerContent = (
+        <div className="flex flex-col gap-4 mt-3">
+            <hr/>
+            <Button outline icon={FcGoogle} onClick={() => {}} label="Continue with Google" />
+            <Button outline icon={AiFillGithub} onClick={() => {}} label="Continue with Github" />
+            <div className="text-neutral-500 text-center mt-4 font-light">
+                <div className="justify-center flex flex-row items-center gap-2">
+                    <div>Already have an account?</div>
+                    <div className="text-neutral-800 cursor-pointer hover:underline" onClick={registerModal.onClose}>Log in</div>
+                </div>
+            </div>
+        </div>
+    ) 
+
+
     return(
-        <Modal disabled={isLoading} isOpen={registerModal.isOpen} title="Register" actionlabel="Continue" onClose={registerModal.onClose} onSubmit={handleSubmit(onSubmit)} body={bodyContent} />
+        <Modal disabled={isLoading} isOpen={registerModal.isOpen} title="Register" actionlabel="Continue" onClose={registerModal.onClose} onSubmit={handleSubmit(onSubmit)} body={bodyContent} footer={footerContent} />
     );
 }
 
